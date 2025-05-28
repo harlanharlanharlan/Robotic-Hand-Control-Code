@@ -9,7 +9,8 @@
 RH_RF69 rf69(RFM69_CS, RFM69_INT);
 
 int16_t packetnum = 0;
-char txt[] = {72, 73, 74, 74, 0 };
+int16_t txt[] = {0, 0, 0, 0, 0 };
+//char txt[] = {72, 73, 74, 74, 0 };
 int x;
 
 void setup() {
@@ -39,10 +40,11 @@ void setup() {
 void loop() {
   for (x = 0; x < 5; x++) {
     txt[x] = analogRead(x);
-//    if (int y >= 200; y = 0; y++) {
-//      num = map(y, 200, 180, 0, 180);
-//    }
+    Serial.print(txt[x]);
+   Serial.print(':');
   }
+  Serial.println();
+//  Serial.println(txt);
   rf69.send((uint8_t *) txt, sizeof(txt));
   rf69.waitPacketSent();
   delay(100);
